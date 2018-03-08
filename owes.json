@@ -1,13 +1,11 @@
-[
-	{
-		"cirquegirl": [
-			{
-				"to": "falconraptor",
-				"owes": {
-					"redstone": 70,
-					"diamonds": 4
-				}
+{
+	"cirquegirl": [
+		{
+			"to": "falconraptor",
+			"owes": {
+				"copper": 4,
+				"gold": 4
 			}
-		]
-	}
-]
+		}
+	]
+}

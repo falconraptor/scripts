@@ -1,0 +1,8 @@
+{
+    "wooden planks": {
+        "amount": 4,
+        "requires": {
+            "wood": 1
+        }
+    }
+}

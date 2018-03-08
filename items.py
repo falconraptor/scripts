@@ -38,7 +38,7 @@ class Crafter:
         return self.raw
 
 
-def load(file='items.json'):
+def load(file='items.skyfactory.json'):
     return {j.lower(): k for j, k in json.loads(''.join(open(file, 'r').readlines())).items()}
 
 
