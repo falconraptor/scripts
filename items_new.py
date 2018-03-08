@@ -61,12 +61,10 @@ def inventory(inv=None):
             keys = list(inv)
             for index, name in enumerate(keys):
                 print('{}) {}'.format(index + 1, name))
-            print()
-            item = int(input('What item would you like to remove from your inventory? ') or -1) - 1
+            item = int(input('\nWhat item would you like to remove from your inventory? ') or -1) - 1
             if item < 0 or item > len(keys):
                 continue
-            amount = int(input('How much of {} would you like to remove from your inventory [{}]? '.format(
-                keys[item], inv[keys[item]])))
+            amount = int(input('How much of {} would you like to remove from your inventory [{}]? '.format(keys[item], inv[keys[item]])))
             if amount == inv[keys[item]]:
                 del inv[keys[item]]
             else:
@@ -117,8 +115,7 @@ def recipes(inv=None, recipe=None):
             keys = list(inv)
             for index, name in enumerate(keys):
                 print('{}) {}'.format(index + 1, name))
-            print()
-            item = int(input('What recipe would you like to remove? ') or -1) - 1
+            item = int(input('\nWhat recipe would you like to remove? ') or -1) - 1
             if item < 0 or item > len(keys):
                 continue
             del recipe[keys[item]]
@@ -136,38 +133,30 @@ def recipes(inv=None, recipe=None):
                 recipe[name] = dict(recipe[keys[item]])
                 del recipe[keys[item]]
             r = recipe[name]
-            r['amount'] = int(input('What is the new amount of {} that this recipe makes [{}]? '.format(
-                name, r['amount']))) or r['amount']
+            r['amount'] = int(input('What is the new amount of {} that this recipe makes [{}]? '.format(name, r['amount']))) or r['amount']
             done = input('Would you like to edit the items required for this recipe (y/n) [n]? ').lower().strip() == 'y'
             while done:
                 keys = list(r['requires'])
                 for index, name in enumerate(keys):
                     print('{}) {} of {}'.format(index + 1, r['requires'][keys[index]], name))
-                print()
-                item = int(input('What item would you like to edit [-1]? ') or -1) - 1
+                item = int(input('\nWhat item would you like to edit [-1]? ') or -1) - 1
                 if len(keys) > item >= 0:
                     sub_commands = ['Change Item', 'Change Amount', 'Remove Item', 'Back']
                     command = sub_commands[get_menu_item(sub_commands)].lower()
                     if command == 'change item':
-                        new_item = input(
-                            'What is the name of the item that you would like to replace this item with [{}]? '.format(
-                                keys[item])) or keys[item]
+                        new_item = input('What is the name of the item that you would like to replace this item with [{}]? '.format(keys[item])) or keys[item]
                         if new_item != keys[item]:
                             r['requires'][new_item] = r['requires'][keys[item]]
-                            print('{} of {} changed to {} of {}'.format(
-                                r['requires'][keys[item]], keys[item], r['requires'][keys[item]], new_item))
+                            print('{} of {} changed to {} of {}'.format(r['requires'][keys[item]], keys[item], r['requires'][keys[item]], new_item))
                     elif command == 'change amount':
-                        new_amount = input('What is the new amount of {} that this item requires [{}]? '.format(
-                            keys[item], r['requires'][keys[item]]))
+                        new_amount = input('What is the new amount of {} that this item requires [{}]? '.format(keys[item], r['requires'][keys[item]]))
                         if r['requires'][keys[item]] != new_amount:
                             r['requires'][keys[item]] = new_amount
-                            print('{} of {} changed to {} of {}'.format(
-                                r['requires'][keys[item]], keys[item], r['requires'][keys[item]], keys[item]))
+                            print('{} of {} changed to {} of {}'.format(r['requires'][keys[item]], keys[item], r['requires'][keys[item]], keys[item]))
                     elif command == 'remove item':
                         del r['requires'][keys[item]]
                         print(keys[item] + ' removed from recipe')
-                done = input(
-                    'Would you like to edit another item required for this recipe (y/n) [n]? ').lower().strip() == 'y'
+                done = input('Would you like to edit another item required for this recipe (y/n) [n]? ').lower().strip() == 'y'
         elif command == 'clear':
             recipe.clear()
             print('Clear complete!')
@@ -176,15 +165,13 @@ def recipes(inv=None, recipe=None):
             if name in recipe:
                 print('That recipe already exists!')
                 continue
-            amount = int(input(
-                'What amount of {} does this recipe make [1]? '.format(name)) or 1)
+            amount = int(input('What amount of {} does this recipe make [1]? '.format(name)) or 1)
             recipe[name] = {'amount': amount, 'requires': {}}
             while True:
                 item = input('What item does this recipe require or "done"? ').lower() or 'done'
                 if item == 'done':
                     break
-                recipe[name]['requires'][item] = int(input('What amount of {} does this recipe require [1]? '.format(
-                    item)) or 1)
+                recipe[name]['requires'][item] = int(input('What amount of {} does this recipe require [1]? '.format(item)) or 1)
             print('Added recipe for ' + name)
 
 
@@ -198,10 +185,8 @@ def main():
         if command == 'quit':
             return
         elif command in {'save', 'load'}:
-            recipe_file = input('What file would you like to {} the recipes from [recipes.json]? '.format(command)) or \
-                'recipes.json'
-            inventory_file = input('What file would you like to {} your inventory from [inv.json]? '.format(command)) \
-                or 'inv.json'
+            recipe_file = input('What file would you like to {} the recipes from [recipes.json]? '.format(command)) or 'recipes.json'
+            inventory_file = input('What file would you like to {} your inventory from [inv.json]? '.format(command)) or 'inv.json'
             if command == 'save':
                 save(recipe_file, inventory_file, inv, recipe)
             else:
